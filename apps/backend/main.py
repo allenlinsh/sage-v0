@@ -4,10 +4,10 @@ import uvicorn
 from typing import List, Dict, Any, Optional
 import json
 import os
+import pandas as pd
 from dotenv import load_dotenv
 
 # Import our modules
-from parser import ResumeParser
 from ranker import Ranker
 from reranker import Reranker
 from evaluator import Evaluator
@@ -31,19 +31,24 @@ app.add_middleware(
 async def root():
     return {"message": "Resume Screening and Candidate Ranking API"}
 
-@app.post("/parse-resumes")
-async def parse_resumes(resumes: List[UploadFile] = File(...)):
-    """Parse uploaded resumes and extract key information"""
-    parser = ResumeParser()
-    parsed_data = []
-    
-    for resume in resumes:
-        content = await resume.read()
-        # Save file temporarily or process directly
-        parsed_resume = parser.parse(content, resume.filename)
-        parsed_data.append(parsed_resume)
-    
-    return {"parsed_resumes": parsed_data}
+@app.get("/load-resumes")
+async def load_resumes():
+    """Load pre-parsed resumes from CSV file"""
+    try:
+        # Load parsed resumes from CSV
+        df = pd.read_csv("./anonymized_resumes.csv")
+        parsed_data = df.to_dict(orient="records")
+        
+        # Process any JSON strings in the data
+        for resume in parsed_data:
+            if isinstance(resume.get("skills"), str):
+                resume["skills"] = json.loads(resume["skills"])
+            if isinstance(resume.get("education"), str):
+                resume["education"] = json.loads(resume["education"])
+        
+        return {"parsed_resumes": parsed_data}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading resumes: {str(e)}")
 
 @app.post("/rank-candidates")
 async def rank_candidates(
@@ -80,24 +85,25 @@ async def evaluate_ranking(
 
 @app.post("/complete-pipeline")
 async def complete_pipeline(
-    resumes: List[UploadFile] = File(...),
     job_description: str = Form(...),
     filters: str = Form("{}"),
     top_k: int = Form(10)
 ):
-    """Run the complete pipeline from parsing to evaluation"""
+    """Run the complete pipeline from loading pre-parsed resumes to evaluation"""
     try:
         # Parse filters
         filters_dict = json.loads(filters)
         
-        # 1. Parse resumes
-        parser = ResumeParser()
-        parsed_resumes = []
+        # 1. Load pre-parsed resumes from CSV
+        df = pd.read_csv("./anonymized_resumes.csv")
+        parsed_resumes = df.to_dict(orient="records")
         
-        for resume in resumes:
-            content = await resume.read()
-            parsed_resume = parser.parse(content, resume.filename)
-            parsed_resumes.append(parsed_resume)
+        # Process any JSON strings in the data
+        for resume in parsed_resumes:
+            if isinstance(resume.get("skills"), str):
+                resume["skills"] = json.loads(resume["skills"])
+            if isinstance(resume.get("education"), str):
+                resume["education"] = json.loads(resume["education"])
         
         # 2. Rank candidates
         ranker = Ranker()

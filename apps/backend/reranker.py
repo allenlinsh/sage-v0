@@ -1,20 +1,13 @@
-import json
 from classes import EvaluationResult, EvaluationRubric, Resume
 import litellm
-import re
-from typing import Dict, Any, List, Tuple
-import time
+from typing import List, Tuple
 from dotenv import load_dotenv
 
 load_dotenv()
 
 
 class LLMReranker:
-    def __init__(
-        self,
-        ranked_candidates: List[Tuple[Resume, float]],
-        model_name: str = "gpt-4.1-nano",
-    ):
+    def __init__(self, ranked_candidates: List[Tuple[Resume, float]], model_name: str):
         self.ranked_candidates = ranked_candidates
         self.model_name = model_name
 
@@ -37,61 +30,10 @@ class LLMReranker:
     def batch_rerank(
         self, top_candidates: List[Tuple[Resume, float]], job_description: str
     ) -> List[Tuple[Resume, float]]:
-        reranked_candidates = []
-
         rubric = self.generate_evaluation_rubric(job_description)
 
-        reranked_candidates = self.evaluate_candidates(
-            next(zip(*top_candidates)), job_description, rubric
-        )
-
-        return reranked_candidates
-
-    def generate_evaluation_rubric(self, job_description: str) -> EvaluationRubric:
-        system_prompt = f"""
-        You are an expert hiring manager assistant. Based on the following job description, create a structured evaluation rubric that can be used to score candidates.
-        The rubric should include 3-5 key criteria that are most important for this role.
-        
-        For each criterion, specify:
-        1. The name of the criterion
-        2. Why it's important for this role
-        3. What would constitute a score range of 80-100 out of 100
-        4. What would constitute a score range of 60-79 out of 100
-        5. What would constitute a score range of 40-59 out of 100
-        6. What would constitute a score range of 20-39 out of 100
-        7. What would constitute a score range of 0-19 out of 100
-        
-        Job Description:
-        {job_description}
-        
-        Return the rubric as a structured JSON object with each criterion and its details.
-        """
-
-        try:
-            response = litellm.completion(
-                model=self.model_name,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": "Generate the rubric."},
-                ],
-                temperature=0.2,
-                response_format=EvaluationRubric,
-            )
-
-            response_message = response.choices[0].message.content
-
-            return EvaluationRubric.model_validate_json(response_message)
-
-        except Exception as e:
-            raise e
-
-    def evaluate_candidates(
-        self,
-        candidates: List[Resume],
-        job_description: str,
-        rubric: EvaluationRubric,
-    ) -> List[Tuple[Resume, float]]:
         rubric_text = self.prepare_rubric(rubric)
+        candidates = next(zip(*top_candidates))
 
         try:
             responses = litellm.batch_completion(
@@ -115,7 +57,7 @@ class LLMReranker:
                 response_format=EvaluationResult,
             )
 
-            return [
+            reranked_candidates = [
                 (
                     candidate,
                     EvaluationResult.model_validate_json(
@@ -124,6 +66,8 @@ class LLMReranker:
                 )
                 for candidate, response in zip(candidates, responses)
             ]
+
+            return reranked_candidates
 
         except Exception as e:
             raise e
@@ -160,3 +104,41 @@ class LLMReranker:
             rubric_text += f"- Poor (0-19): {criterion.score_0_19}\n\n"
 
         return rubric_text
+
+    def generate_evaluation_rubric(self, job_description: str) -> EvaluationRubric:
+        system_prompt = f"""
+        You are an expert hiring manager assistant. Based on the following job description, create a structured evaluation rubric that can be used to score candidates.
+        The rubric should include 3-5 key criteria that are most important for this role.
+        
+        For each criterion, specify:
+        1. The name of the criterion
+        2. Why it's important for this role
+        3. What would constitute a score range of 80-100 out of 100
+        4. What would constitute a score range of 60-79 out of 100
+        5. What would constitute a score range of 40-59 out of 100
+        6. What would constitute a score range of 20-39 out of 100
+        7. What would constitute a score range of 0-19 out of 100
+        
+        Job Description:
+        {job_description}
+        
+        Return the rubric as a structured JSON object with each criterion and its details.
+        """
+
+        try:
+            response = litellm.completion(
+                model=self.model_name,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": "Generate the evaluation rubric."},
+                ],
+                temperature=0.2,
+                response_format=EvaluationRubric,
+            )
+
+            response_message = response.choices[0].message.content
+
+            return EvaluationRubric.model_validate_json(response_message)
+
+        except Exception as e:
+            raise e

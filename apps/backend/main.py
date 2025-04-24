@@ -57,7 +57,8 @@ def rerank_candidates(
     ranked_candidates: List[Tuple[Resume, float]], job_description: str, top_k: int = 10
 ) -> List[Tuple[Resume, float]]:
     try:
-        reranker = LLMReranker(ranked_candidates)
+        reranker_model = get_env_var("RERANKER_MODEL", "gpt-4.1-nano")
+        reranker = LLMReranker(ranked_candidates, reranker_model)
 
         reranked_candidates = reranker.rerank(job_description, top_k)
 
@@ -83,30 +84,38 @@ def evaluate_ranking(
         raise Exception(f"Error evaluating ranking: {str(e)}")
 
 
-@app.post("/complete-pipeline")
+@app.post("/run")
 async def complete_pipeline(job_description: str = Form(...), top_k: int = Form(10)):
     try:
         candidates = load_resumes()
 
+        print("\nRanking Candidates...\n")
+
         ranked_candidates = rank_candidates(candidates, job_description)
 
-        print("BM25 Ranked Candidates\n")
+        print("\nBM25 Ranked Candidates\n")
         for candidate, score in ranked_candidates:
             print(f"{candidate.resume_id}: {score}")
+
+        print("\nReranking Candidates...\n")
 
         reranked_candidates = rerank_candidates(
             ranked_candidates, job_description, top_k
         )
 
-        print("\n\nLLM Reranked Candidates\n")
+        print("\nLLM Reranked Candidates\n")
         for candidate, score in reranked_candidates:
             print(f"{candidate.resume_id}: {score}")
 
+        print("\nEvaluating Candidates...\n")
+
         evaluation_results = evaluate_ranking(reranked_candidates, job_description)
+
+        print(f"\nMAP@10: {evaluation_results}\n")
 
         return {
             "ranked_candidates": [(c[0].__dict__, c[1]) for c in ranked_candidates],
-            "reranked_candidates": reranked_candidates,
+            "reranked_candidates": [(c[0].__dict__, c[1]) for c in reranked_candidates],
             "evaluation_results": evaluation_results,
         }
 

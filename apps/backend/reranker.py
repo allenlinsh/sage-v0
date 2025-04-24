@@ -1,5 +1,5 @@
 import json
-from classes import EvaluationRubric, Resume
+from classes import EvaluationResult, EvaluationRubric, Resume
 import litellm
 import re
 from typing import Dict, Any, List, Tuple
@@ -32,7 +32,7 @@ class LLMReranker:
 
         reranked_candidates = self.batch_rerank(top_candidates, job_description)
 
-        return sorted(reranked_candidates, key=lambda x: x.llm_score, reverse=True)
+        return sorted(reranked_candidates, key=lambda x: x[1], reverse=True)
 
     def batch_rerank(
         self, top_candidates: List[Tuple[Resume, float]], job_description: str
@@ -40,19 +40,10 @@ class LLMReranker:
         reranked_candidates = []
 
         rubric = self.generate_evaluation_rubric(job_description)
-        
-        print(rubric)
-        
-        return
 
-        for candidate, score in top_candidates:
-            time.sleep(0.1)
-
-            evaluated_candidate, evaluated_score = self.evaluate_candidate(
-                candidate, score, job_description, rubric
-            )
-
-            reranked_candidates.append((evaluated_candidate, evaluated_score))
+        reranked_candidates = self.evaluate_candidates(
+            next(zip(*top_candidates)), job_description, rubric
+        )
 
         return reranked_candidates
 
@@ -88,142 +79,84 @@ class LLMReranker:
             )
 
             response_message = response.choices[0].message.content
-            
+
             return EvaluationRubric.model_validate_json(response_message)
 
         except Exception as e:
             raise e
 
-    def evaluate_candidate(
+    def evaluate_candidates(
         self,
-        candidate: Resume,
-        score: float,
+        candidates: List[Resume],
         job_description: str,
-        rubric: Dict[str, Any],
-    ) -> Tuple[Resume, float]:
-        candidate_summary = self.prepare_candidate_summary(candidate)
+        rubric: EvaluationRubric,
+    ) -> List[Tuple[Resume, float]]:
+        rubric_text = self.prepare_rubric(rubric)
 
-        # Prepare the evaluation prompt with the rubric
-        rubric_text = json.dumps(rubric, indent=2)
+        try:
+            responses = litellm.batch_completion(
+                model=self.model_name,
+                messages=[
+                    [
+                        {
+                            "role": "system",
+                            "content": self.prepare_system_prompt(
+                                job_description, candidate, rubric_text
+                            ),
+                        },
+                        {
+                            "role": "user",
+                            "content": "Return the numerical score as a float value.",
+                        },
+                    ]
+                    for candidate in candidates
+                ],
+                temperature=0.2,
+                response_format=EvaluationResult,
+            )
 
-        prompt = f"""
+            return [
+                (
+                    candidate,
+                    EvaluationResult.model_validate_json(
+                        response.choices[0].message.content
+                    ).score,
+                )
+                for candidate, response in zip(candidates, responses)
+            ]
+
+        except Exception as e:
+            raise e
+
+    def prepare_system_prompt(
+        self, job_description: str, candidate: Resume, rubric_text: str
+    ):
+        return f"""
         You are an expert hiring manager assistant. Evaluate the following candidate for a job using the provided rubric.
         
         ## Job Description:
         {job_description}
         
-        ## Candidate Information:
-        {candidate_summary}
+        ## Candidate Resume:
+        {candidate.resume_text}
         
         ## Evaluation Rubric:
         {rubric_text}
         
-        For each criterion in the rubric, score the candidate on a scale of 1-5 and provide specific justification based on the candidate's profile.
-        
-        Then provide:
-        1. An overall score on a scale of 0-100
-        2. A brief explanation (2-3 sentences) of your overall assessment
-        3. Key strengths (up to 3)
-        4. Key weaknesses (up to 3)
-        
-        Return your evaluation in a structured JSON format with the following fields:
-        - criterion_scores: Object with criterion names as keys and scores (1-5) as values
-        - justifications: Object with criterion names as keys and justification texts as values
-        - overall_score: Numeric score between 0-100
-        - overall_assessment: Text explanation of overall assessment
-        - strengths: Array of strengths
-        - weaknesses: Array of weaknesses
+        Based on the candidate's resume and the evaluation rubric, provide a single numerical score between 0 and 100 that represents how well the candidate matches the job description.
         """
 
-        try:
-            response = litellm.completion(
-                model=self.model_name,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=0.2,
-                max_tokens=1500,
+    def prepare_rubric(self, rubric: EvaluationRubric) -> str:
+        rubric_text = "EVALUATION CRITERIA:\n\n"
+
+        for criterion in rubric.criteria:
+            rubric_text += (
+                f"Criterion: {criterion.name} (Importance: {criterion.importance})\n"
             )
+            rubric_text += f"- Excellent (80-100): {criterion.score_80_100}\n"
+            rubric_text += f"- Good (60-79): {criterion.score_60_79}\n"
+            rubric_text += f"- Average (40-59): {criterion.score_40_59}\n"
+            rubric_text += f"- Below Average (20-39): {criterion.score_20_39}\n"
+            rubric_text += f"- Poor (0-19): {criterion.score_0_19}\n\n"
 
-            content = response.choices[0].message.content
-
-            # Extract JSON from the response
-            try:
-                evaluation_json = self._extract_json(content)
-                evaluation = json.loads(evaluation_json)
-
-                # Update the candidate with the LLM evaluation
-                result = candidate.copy()
-                result["llm_score"] = evaluation.get("overall_score", 0)
-                result["llm_assessment"] = evaluation.get("overall_assessment", "")
-                result["llm_strengths"] = evaluation.get("strengths", [])
-                result["llm_weaknesses"] = evaluation.get("weaknesses", [])
-                result["llm_criterion_scores"] = evaluation.get("criterion_scores", {})
-                result["llm_justifications"] = evaluation.get("justifications", {})
-
-                return result
-            except Exception as json_error:
-                print(f"Error parsing LLM response as JSON: {str(json_error)}")
-                # Try to extract the overall score from the text
-                score_match = re.search(
-                    r"overall\s+score\s*:?\s*(\d+)", content.lower()
-                )
-                overall_score = int(score_match.group(1)) if score_match else 50
-
-                # Update with extracted information
-                result = candidate.copy()
-                result["llm_score"] = overall_score
-                result["llm_assessment"] = (
-                    "Error parsing full evaluation: " + content[:100] + "..."
-                )
-                result["llm_strengths"] = []
-                result["llm_weaknesses"] = []
-
-                return result
-
-        except Exception as e:
-            print(f"Error during LLM evaluation: {str(e)}")
-            # Return original candidate with error noted
-            result = candidate.copy()
-            result["llm_score"] = candidate.get("final_score", 0) * 20  # Scale to 0-100
-            result["llm_assessment"] = f"LLM evaluation failed: {str(e)}"
-            result["llm_strengths"] = []
-            result["llm_weaknesses"] = []
-
-            return result
-
-    def prepare_candidate_summary(self, candidate: Dict[str, Any]) -> str:
-        """Prepare a text summary of the candidate for the LLM prompt"""
-        # Extract key information
-        skills = ", ".join(candidate.get("skills", []))
-        education = candidate.get("education", "Not specified")
-        experience_years = candidate.get("experience_years", 0)
-        location = candidate.get("location", "Not specified")
-        summary = candidate.get("summary", "")
-
-        # Format as text
-        candidate_summary = f"""
-        Skills: {skills}
-        Education: {education}
-        Years of Experience: {experience_years}
-        Location: {location}
-        Initial Ranking Score: {candidate.get("final_score", 0):.2f}
-        
-        Summary:
-        {summary}
-        """
-
-        return candidate_summary
-
-    def _extract_json(self, text: str) -> str:
-        """Extract JSON content from text that may have markdown or other formatting"""
-        # Look for JSON content between triple backticks
-        json_match = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", text)
-        if json_match:
-            return json_match.group(1)
-
-        # Look for content that appears to be JSON (starting with { and ending with })
-        json_match = re.search(r"(\{[\s\S]*\})", text)
-        if json_match:
-            return json_match.group(1)
-
-        # If no JSON-like content found, return the original text
-        return text
+        return rubric_text

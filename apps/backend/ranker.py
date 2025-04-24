@@ -10,7 +10,7 @@ class BM25Ranker:
         self,
         candidates: List[Resume],
         k1: float = 1.5,
-        k2: float = 100,
+        k2: float = 1.69,
         b: float = 0.75,
     ):
         self.candidates = candidates
@@ -59,6 +59,7 @@ class BM25Ranker:
             .replace(";", " ")
             .replace(":", " ")
             .replace("-", " ")
+            .replace(",", " ")
         )
         return sorted(
             ((c, self.bm25_score(c, processed_description)) for c in self.candidates),

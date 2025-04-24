@@ -27,6 +27,9 @@ app.add_middleware(
 def load_resumes() -> List[Resume]:
     try:
         df = pd.read_csv("./anonymized_resumes.csv")
+        df = df.dropna(subset=["education", "location", "skills"])
+        df = df[(df["education"] != "") & (df["location"] != "") & (df["skills"] != "")]
+        df = df[(df["education"] != "[]") & (df["skills"] != "[]")]
         parsed_data = df.to_dict(orient="records")
 
         resumes = [Resume.from_csv_row(row) for row in parsed_data]
@@ -42,7 +45,7 @@ def rank_candidates(
 ) -> List[Tuple[Resume, float]]:
     try:
         ranker = BM25Ranker(resumes)
-        
+
         ranked_candidates = ranker.rank(job_description)
 
         return ranked_candidates
@@ -84,14 +87,20 @@ def evaluate_ranking(
 async def complete_pipeline(job_description: str = Form(...), top_k: int = Form(10)):
     try:
         candidates = load_resumes()
-        
+
         ranked_candidates = rank_candidates(candidates, job_description)
+
+        print("BM25 Ranked Candidates\n\n")
+        for candidate, score in ranked_candidates:
+            print(f"{candidate.resume_id}: {score}")
 
         reranked_candidates = rerank_candidates(
             ranked_candidates, job_description, top_k
         )
 
-        return
+        print("\n\nLLM Reranked Candidates\n\n")
+        for candidate, score in reranked_candidates:
+            print(f"{candidate.resume_id}: {score}")
 
         evaluation_results = evaluate_ranking(reranked_candidates, job_description)
 

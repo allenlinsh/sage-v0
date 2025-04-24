@@ -47,7 +47,7 @@ class Resume:
     ):
         self.resume_id = resume_id
         self.resume_text = (
-            resume_text.lower().replace(";", " ").replace(":", " ").replace("-", " ")
+            resume_text.lower().replace(";", " ").replace(":", " ").replace("-", " ").replace(",", " ")
         )
         self.education = education or []
         self.location = location
@@ -115,3 +115,8 @@ class EvaluationCriterion(BaseModel):
 
 class EvaluationRubric(BaseModel):
     criteria: List[EvaluationCriterion]
+
+
+class EvaluationResult(BaseModel):
+    reason: str
+    score: float

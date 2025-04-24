@@ -19,7 +19,7 @@ evaluator flow:
 
 class Evaluator:
     def __init__(self):
-        self.model_name = get_env_var("EVALUATOR_MODEL", "gpt-o3")
+        self.model_name = get_env_var("EVALUATOR_MODEL", "o3")
         self.top_k = 10
 
         litellm.set_verbose = False

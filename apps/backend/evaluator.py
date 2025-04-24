@@ -1,12 +1,10 @@
-import os
 import json
+from classes import Resume
 import litellm
 import re
-import time
 from typing import Dict, Any, List, Optional, Union, Tuple
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
 load_dotenv()
 
 class Evaluator:
@@ -32,7 +30,7 @@ class Evaluator:
         self.max_revisions = 3
     
     def evaluate(self, 
-                candidates: List[Dict[str, Any]], 
+                candidates: List[Resume], 
                 job_description: str,
                 ground_truth: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
         """

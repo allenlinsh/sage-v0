@@ -1,0 +1,1876 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+4. Repository files, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+<additional_info>
+
+</additional_info>
+
+</file_summary>
+
+<directory_structure>
+.env.example
+.gitignore
+anduril_job.txt
+classes.py
+csv_fun.ipynb
+evaluator.py
+helpers.py
+main.py
+ranker.py
+README.md
+requirements.txt
+reranker.py
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".env.example">
+# OpenAI API key for LLM components
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Server port
+PORT=8000
+
+# Default model names
+RERANKER_MODEL=gpt-4.1-mini
+EVALUATOR_MODEL=gpt-4o
+
+# Optional: Maximum number of candidates to evaluate
+MAX_CANDIDATES=100
+</file>
+
+<file path=".gitignore">
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+#   For a library or package, you might want to ignore these files since the code is
+#   intended to run in multiple environments; otherwise, check them in:
+# .python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in case of collaboration, if having platform-specific dependencies or dependencies
+#   having no cross-platform support, pipenv may install dependencies that don't work, or not
+#   install all needed dependencies.
+#Pipfile.lock
+
+# UV
+#   Similar to Pipfile.lock, it is generally recommended to include uv.lock in version control.
+#   This is especially recommended for binary packages to ensure reproducibility, and is more
+#   commonly ignored for libraries.
+#uv.lock
+
+# poetry
+#   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
+#   This is especially recommended for binary packages to ensure reproducibility, and is more
+#   commonly ignored for libraries.
+#   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
+#poetry.lock
+
+# pdm
+#   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
+#pdm.lock
+#   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
+#   in version control.
+#   https://pdm.fming.dev/latest/usage/project/#working-with-version-control
+.pdm.toml
+.pdm-python
+.pdm-build/
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# PyCharm
+#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
+#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
+#  and can be added to the global gitignore or merged into this file.  For a more nuclear
+#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
+#.idea/
+
+# Ruff stuff:
+.ruff_cache/
+
+# PyPI configuration file
+.pypirc
+
+# Test pipeline output directory
+output/
+output/**/*
+
+# Misc
+.env
+
+anonymized_resumes.csv
+**/anonymized_resumes.csv
+</file>
+
+<file path="anduril_job.txt">
+Anduril Industries is a defense technology company with a mission to transform U.S. and allied military capabilities with advanced technology. By bringing the expertise, technology, and business model of the 21st century’s most innovative companies to the defense industry, Anduril is changing how military systems are designed, built and sold. Anduril’s family of systems is powered by Lattice OS, an AI-powered operating system that turns thousands of data streams into a realtime, 3D command and control center. As the world enters an era of strategic competition, Anduril is committed to bringing cutting-edge autonomy, AI, computer vision, sensor fusion, and networking technology to the military in months, not years.
+
+What You’ll Do
+
+We build Lattice, the foundation for everything we do as a defense technology company. Our engineers are talented and hard-working, motivated to see their work rapidly deployed on the front lines. Our team is not just building an experiment in waiting, we deploy what we build on the Southern border, Iraq, Ukraine and more.
+
+We have open roles across Platform Engineering, ranging from core infrastructure to distributed systems, web development, networking and more. We hire self-motivated people, those who hold a higher bar for themselves than anyone else could hold for them. If you love building infrastructure, platform services, or just working in high performing engineering cultures we invite you to apply!
+
+Required Qualifications
+
+At least 3+ years working with a variety of programming languages such as Rust, Go, C++, Java, Python, JavaScript/TypeScript, etc.
+Have experience working with customers to deliver novel software capabilities
+Want to work on building and integrating model/software/hardware-in-the-loop components by leveraging first and third party technologies (related to simulation, data management, compute infrastructure, networking, and more). 
+Love building platform and infrastructure tooling that enables other software engineers to scale their output
+Enjoy collaborating with team members and partners in the autonomy domain, and building technologies and processes which enable users to safely and rapidly develop and deploy autonomous systems at scale.
+Must be a U.S. Person due to required access to U.S. export controlled information or facilities
+
+Note: The above bullet points describe the ideal candidate. None of us matched all of these at once when we first joined Anduril. We encourage you to apply even if you believe you meet only part of our wish list.
+
+Preferred Qualifications
+
+You've built or invented something: an app, a website, game, startup
+Previous experience working in an engineering setting: a startup (or startup-like environment), engineering school, etc. If you've succeeded in a low structure, high autonomy environment you'll succeed here!
+Professional software development lifecycle experience using tools such as version control, CICD systems, etc.
+A deep, demonstrated understanding of how computers and networks work, from a single desktop to a multi-cluster cloud node
+Experience building scalable backend software systems with various data storage and processing requirements
+Experience with industry standard cloud platforms (AWS, Azure), CI/CD tools, and software infrastructure fundamentals (networking, security, distributed systems)
+Ability to quickly understand and navigate complex systems and established code bases
+Experience implementing robot or autonomous vehicle testing frameworks in a software-in-the-loop or hardware-in-the-loop (HITL) environment
+Experience with modern build and deployment tooling (e.g. NixOS, Terraform)
+Experience designing complex software systems, and iterating upon designs via a technical design review process
+Familiarity with industry standard monitoring, logging, and data management tools and best practices
+A bias towards rapid delivery and iteration
+
+Salary: $138K - $207K + RSU
+
+Benefits
+
+The salary range for this role is an estimate based on a wide range of compensation factors, inclusive of base salary only. Actual salary offer may vary based on (but not limited to) work experience, education and/or training, critical skills, and/or business considerations. Highly competitive equity grants are included in the majority of full time offers; and are considered part of Anduril's total compensation package. Additionally, Anduril offers top-tier benefits for full-time employees, including: 
+
+Platinum Healthcare Benefits: For U.S. roles, we offer comprehensive medical, dental, and vision plans at little to no cost to you.
+For UK roles, Private Medical Insurance (PMI): Anduril will cover the full cost of the insurance premium for an employee and dependents.
+For AUS roles, Private health plan through Bupa: Coverage is fully subsidized by Anduril.
+Basic Life/AD&D and long-term disability insurance 100% covered by Anduril, plus the option to purchase additional life insurance for you and your dependents.
+Extremely generous company holiday calendar including a holiday hiatus in December, and highly competitive PTO plans.
+16 weeks of paid Caregiver & Wellness Leave to care for a family member, bond with your baby, or tend to your own medical condition.
+Family Planning & Parenting Support: Fertility (eg, IVF, preservation), adoption, and gestational carrier coverage with additional benefits and resources to provide support from planning to parenting.
+Mental Health Resources: We provide free mental health resources 24/7 including therapy, life coaching, and more. Additional work-life services, such as free legal and financial support, available to you as well.
+A professional development stipend is available to all Andurilians.
+Daily Meals and Provisions: For many of our offices this means breakfast, lunch and fully stocked micro-kitchens.
+Company-funded commuter benefits available based on your region.
+Relocation assistance (depending on role eligibility).
+401(k) retirement savings plan - both a traditional and Roth 401(k). (US roles only)
+The recruiter assigned to this role can share more information about the specific compensation and benefit details associated with this role during the hiring process.
+
+Anduril is an equal-opportunity employer committed to creating a diverse and inclusive workplace. The Anduril team is made up of incredibly talented and unique individuals, who together are disrupting industry norms by creating new paths towards the future of defense technology. All qualified applicants will be treated with respect and receive equal consideration for employment without regard to race, color, creed, religion, sex, gender identity, sexual orientation, national origin, disability, uniform service, Veteran status, age, or any other protected characteristic per federal, state, or local law, including those with a criminal history, in a manner consistent with the requirements of applicable state and local laws, including the CA Fair Chance Initiative for Hiring Ordinance. We actively encourage members of recognized minorities, women, Veterans, and those with disabilities to apply, and we work to create a welcoming and supportive environment for all applicants throughout the interview process. If you are someone passionate about working on problems that have a real-world impact, we'd love to hear from you!
+</file>
+
+<file path="classes.py">
+from typing import List, Dict, Any
+from pydantic import BaseModel
+from typing import List
+
+
+class Education:
+    """
+    Represents an education entry in a resume.
+    Based on the schema: school, degree, year
+    """
+
+    def __init__(self, school: str, degree: str, year: str = ""):
+        self.school = school
+        self.degree = degree
+        self.year = year
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, str]) -> "Education":
+        """Create an Education instance from a dictionary."""
+        return cls(
+            school=data.get("school", ""),
+            degree=data.get("degree", ""),
+            year=data.get("year", ""),
+        )
+
+    def __str__(self) -> str:
+        """Return a string representation of the education entry."""
+        if self.year:
+            return f"{self.school} - {self.degree} ({self.year})"
+        else:
+            return f"{self.school} - {self.degree}"
+
+
+class Resume:
+    """
+    Represents a parsed resume with all relevant candidate information.
+    Based on the CSV schema: resume_id, resume_text, education, location, skills
+    """
+
+    def __init__(
+        self,
+        resume_id: str,
+        resume_text: str,
+        education: List[Education] = None,
+        location: str = "",
+        skills: List[str] = None,
+    ):
+        self.resume_id = resume_id
+        self.resume_text = (
+            resume_text.lower().replace(";", " ").replace(":", " ").replace("-", " ").replace(",", " ")
+        )
+        self.education = education or []
+        self.location = location
+        self.skills = skills or []
+
+        self.tokens = self.resume_text.split()
+
+        self.term_frequencies: Dict[str, int] = {}
+
+        for token in self.tokens:
+            self.term_frequencies[token] = self.term_frequencies.get(token, 0) + 1
+
+    @classmethod
+    def from_csv_row(cls, row: Dict[str, Any]) -> "Resume":
+        """
+        Create a Resume instance from a row in the CSV.
+
+        Args:
+            row: Dictionary representing a row from the CSV
+
+        Returns:
+            Resume instance
+        """
+        # Handle different types of education data (string or list of dicts)
+        education_data = row.get("education", [])
+        if isinstance(education_data, str):
+            try:
+                import json
+
+                education_data = json.loads(education_data)
+            except:
+                education_data = []
+
+        # Convert education dictionaries to Education objects
+        education_objects = [Education.from_dict(edu) for edu in education_data]
+
+        # Handle skills data
+        skills_data = row.get("skills", [])
+        if isinstance(skills_data, str):
+            try:
+                import json
+
+                skills_data = json.loads(skills_data)
+            except:
+                skills_data = []
+
+        return cls(
+            resume_id=row.get("resume_id", ""),
+            resume_text=row.get("anonResumeText", ""),
+            education=education_objects,
+            location=row.get("location", ""),
+            skills=skills_data,
+        )
+
+
+class EvaluationCriterion(BaseModel):
+    name: str
+    importance: str
+    score_80_100: str
+    score_60_79: str
+    score_40_59: str
+    score_20_39: str
+    score_0_19: str
+
+
+class EvaluationRubric(BaseModel):
+    criteria: List[EvaluationCriterion]
+
+
+class EvaluationResult(BaseModel):
+    reason: str
+    score: float
+</file>
+
+<file path="csv_fun.ipynb">
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "DataFrame Info:\n",
+      "Shape: (100, 5)\n",
+      "\n",
+      "Columns:\n",
+      "['resume_id', 'anonResumeText', 'education', 'location', 'skills']\n",
+      "\n",
+      "First 5 rows:\n"
+     ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>resume_id</th>\n",
+       "      <th>anonResumeText</th>\n",
+       "      <th>education</th>\n",
+       "      <th>location</th>\n",
+       "      <th>skills</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>0002qU4YC4HbXfG6d9iq0uYVt</td>\n",
+       "      <td>Education\\nNortheastern University | Boston, M...</td>\n",
+       "      <td>[{\"school\": \"Northeastern University\", \"degree...</td>\n",
+       "      <td>\"Boston, MA\"</td>\n",
+       "      <td>[\"Swift\", \"TypeScript\", \"Python\", \"Node.js\", \"...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>001ViPo5kXWCfhg2POXr5VS2q</td>\n",
+       "      <td>Objective: Motivational leader and organizatio...</td>\n",
+       "      <td>[{\"school\": \"Australian Vocational Education &amp;...</td>\n",
+       "      <td>\"Brampton, Ontario, Canada\"</td>\n",
+       "      <td>[\"Problem solving\", \"Staff Development\", \"Load...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>005DWd3QWdV2H7Q5IYTlCAYom</td>\n",
+       "      <td>Summary\\nExperienced Supply Chain Analyst with...</td>\n",
+       "      <td>[{\"school\": \"University of New Haven\", \"degree...</td>\n",
+       "      <td>\"Hickory, NC\"</td>\n",
+       "      <td>[\"Demand Forecasting\", \"Inventory Optimization...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>007qR0eNORlnc9OmN8kq5KeV9</td>\n",
+       "      <td>EDUCATION\\nCORNELL SC JOHNSON COLLEGE OF BUSIN...</td>\n",
+       "      <td>[{\"school\": \"CORNELL SC JOHNSON COLLEGE OF BUS...</td>\n",
+       "      <td>\"Ithaca, NY\"</td>\n",
+       "      <td>[\"Python\", \"SQL\", \"Tableau\", \"Looker\", \"Metaba...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>009BCMwERmnjdWBLKiFLuA8IG</td>\n",
+       "      <td>Professional Summary\\nExperienced intern with ...</td>\n",
+       "      <td>[{\"school\": \"San Jose State University\", \"degr...</td>\n",
+       "      <td>\"San Jose, CA\"</td>\n",
+       "      <td>[\"Python\", \"Java\", \"SQL\", \"JavaScript\", \"Teamw...</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                   resume_id  \\\n",
+       "0  0002qU4YC4HbXfG6d9iq0uYVt   \n",
+       "1  001ViPo5kXWCfhg2POXr5VS2q   \n",
+       "2  005DWd3QWdV2H7Q5IYTlCAYom   \n",
+       "3  007qR0eNORlnc9OmN8kq5KeV9   \n",
+       "4  009BCMwERmnjdWBLKiFLuA8IG   \n",
+       "\n",
+       "                                      anonResumeText  \\\n",
+       "0  Education\\nNortheastern University | Boston, M...   \n",
+       "1  Objective: Motivational leader and organizatio...   \n",
+       "2  Summary\\nExperienced Supply Chain Analyst with...   \n",
+       "3  EDUCATION\\nCORNELL SC JOHNSON COLLEGE OF BUSIN...   \n",
+       "4  Professional Summary\\nExperienced intern with ...   \n",
+       "\n",
+       "                                           education  \\\n",
+       "0  [{\"school\": \"Northeastern University\", \"degree...   \n",
+       "1  [{\"school\": \"Australian Vocational Education &...   \n",
+       "2  [{\"school\": \"University of New Haven\", \"degree...   \n",
+       "3  [{\"school\": \"CORNELL SC JOHNSON COLLEGE OF BUS...   \n",
+       "4  [{\"school\": \"San Jose State University\", \"degr...   \n",
+       "\n",
+       "                      location  \\\n",
+       "0                 \"Boston, MA\"   \n",
+       "1  \"Brampton, Ontario, Canada\"   \n",
+       "2                \"Hickory, NC\"   \n",
+       "3                 \"Ithaca, NY\"   \n",
+       "4               \"San Jose, CA\"   \n",
+       "\n",
+       "                                              skills  \n",
+       "0  [\"Swift\", \"TypeScript\", \"Python\", \"Node.js\", \"...  \n",
+       "1  [\"Problem solving\", \"Staff Development\", \"Load...  \n",
+       "2  [\"Demand Forecasting\", \"Inventory Optimization...  \n",
+       "3  [\"Python\", \"SQL\", \"Tableau\", \"Looker\", \"Metaba...  \n",
+       "4  [\"Python\", \"Java\", \"SQL\", \"JavaScript\", \"Teamw...  "
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "Missing values:\n",
+      "resume_id         0\n",
+      "anonResumeText    0\n",
+      "education         0\n",
+      "location          0\n",
+      "skills            0\n",
+      "dtype: int64\n",
+      "\n",
+      "Basic statistics:\n"
+     ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>resume_id</th>\n",
+       "      <th>anonResumeText</th>\n",
+       "      <th>education</th>\n",
+       "      <th>location</th>\n",
+       "      <th>skills</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>count</th>\n",
+       "      <td>100</td>\n",
+       "      <td>100</td>\n",
+       "      <td>100</td>\n",
+       "      <td>100</td>\n",
+       "      <td>100</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>unique</th>\n",
+       "      <td>100</td>\n",
+       "      <td>100</td>\n",
+       "      <td>95</td>\n",
+       "      <td>90</td>\n",
+       "      <td>99</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>top</th>\n",
+       "      <td>0002qU4YC4HbXfG6d9iq0uYVt</td>\n",
+       "      <td>Education\\nNortheastern University | Boston, M...</td>\n",
+       "      <td>[]</td>\n",
+       "      <td>\"\"</td>\n",
+       "      <td>[]</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>freq</th>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>6</td>\n",
+       "      <td>4</td>\n",
+       "      <td>2</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "                        resume_id  \\\n",
+       "count                         100   \n",
+       "unique                        100   \n",
+       "top     0002qU4YC4HbXfG6d9iq0uYVt   \n",
+       "freq                            1   \n",
+       "\n",
+       "                                           anonResumeText education location  \\\n",
+       "count                                                 100       100      100   \n",
+       "unique                                                100        95       90   \n",
+       "top     Education\\nNortheastern University | Boston, M...        []       \"\"   \n",
+       "freq                                                    1         6        4   \n",
+       "\n",
+       "       skills  \n",
+       "count     100  \n",
+       "unique     99  \n",
+       "top        []  \n",
+       "freq        2  "
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "Number of rows in the dataframe: 100\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "# Load the CSV file\n",
+    "df = pd.read_csv('anonymized_resumes.csv')\n",
+    "\n",
+    "# Display basic information about the dataframe\n",
+    "print(\"DataFrame Info:\")\n",
+    "print(f\"Shape: {df.shape}\")\n",
+    "print(\"\\nColumns:\")\n",
+    "print(df.columns.tolist())\n",
+    "\n",
+    "# Display the first few rows\n",
+    "print(\"\\nFirst 5 rows:\")\n",
+    "display(df.head())\n",
+    "\n",
+    "# Check for missing values\n",
+    "print(\"\\nMissing values:\")\n",
+    "print(df.isnull().sum())\n",
+    "\n",
+    "# Basic statistics for numeric columns\n",
+    "print(\"\\nBasic statistics:\")\n",
+    "display(df.describe(include='all'))\n",
+    "\n",
+    "# Get the number of rows in the dataframe\n",
+    "num_rows = len(df)\n",
+    "print(f\"\\nNumber of rows in the dataframe: {num_rows}\")\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "First row in the dataframe:\n",
+      "resume_id                                 0002qU4YC4HbXfG6d9iq0uYVt\n",
+      "anonResumeText    Education\\nNortheastern University | Boston, M...\n",
+      "education         [{\"school\": \"Northeastern University\", \"degree...\n",
+      "location                                               \"Boston, MA\"\n",
+      "skills            [\"Swift\", \"TypeScript\", \"Python\", \"Node.js\", \"...\n",
+      "Name: 0, dtype: object\n",
+      "\n",
+      "Education column of the first row:\n",
+      "[{\"school\": \"Northeastern University\", \"degree\": \"B.S. Computer Science, Artificial Intelligence Concentration, Mathematics Minor\", \"year\": \"2021-2025\"}]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Get the first row in the dataframe\n",
+    "first_row = df.iloc[0]\n",
+    "print(\"\\nFirst row in the dataframe:\")\n",
+    "print(first_row)\n",
+    "\n",
+    "# Print the education column of the first row\n",
+    "print(\"\\nEducation column of the first row:\")\n",
+    "print(first_row['education'])\n",
+    "\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "venv",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
+</file>
+
+<file path="evaluator.py">
+import json
+from classes import Resume
+import litellm
+import re
+from typing import Dict, Any, List, Optional, Union, Tuple
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class Evaluator:
+    """
+    Evaluator that uses a more advanced LLM (e.g., GPT-o3) to evaluate 
+    the quality of candidate rankings and provide insights.
+    """
+    
+    def __init__(self, model_name: str = "gpt-4o"):
+        """
+        Initialize the evaluator with the specified model.
+        
+        Args:
+            model_name: Name of the LLM model to use (default: gpt-4o)
+        """
+        self.model_name = model_name
+        
+        # Initialize litellm
+        litellm.set_verbose = False
+        
+        # Track revisions needed for metrics
+        self.revision_count = 0
+        self.max_revisions = 3
+    
+    def evaluate(self, 
+                candidates: List[Resume], 
+                job_description: str,
+                ground_truth: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
+        """
+        Evaluate the quality of candidate rankings
+        
+        Args:
+            candidates: List of ranked candidates
+            job_description: Job description text
+            ground_truth: Optional ground truth rankings for evaluation
+            
+        Returns:
+            Dictionary with evaluation metrics and insights
+        """
+        # Reset revision count
+        self.revision_count = 0
+        
+        # Initialize evaluation results
+        evaluation_results = {
+            "metrics": {},
+            "insights": [],
+            "recommended_improvements": [],
+            "top_candidates_analysis": []
+        }
+        
+        try:
+            # Generate evaluation rubric
+            rubric = self._generate_evaluation_rubric(job_description)
+            
+            # 1. Evaluate ranking quality
+            ranking_quality = self._evaluate_ranking_quality(candidates, job_description, rubric)
+            evaluation_results["ranking_quality"] = ranking_quality
+            
+            # 2. Calculate precision at K
+            if ground_truth:
+                precision_at_k = self._calculate_precision_at_k(candidates, ground_truth)
+                evaluation_results["metrics"].update(precision_at_k)
+            
+            # 3. Analyze top candidates
+            top_candidates_analysis = self._analyze_top_candidates(candidates[:10], job_description)
+            evaluation_results["top_candidates_analysis"] = top_candidates_analysis
+            
+            # 4. Generate improvement recommendations
+            recommendations = self._generate_recommendations(candidates, job_description, ranking_quality)
+            evaluation_results["recommended_improvements"] = recommendations
+            
+            # Add metadata
+            evaluation_results["metadata"] = {
+                "model_used": self.model_name,
+                "revision_count": self.revision_count,
+                "candidates_evaluated": len(candidates),
+                "job_description_length": len(job_description)
+            }
+            
+            return evaluation_results
+            
+        except Exception as e:
+            # Return error information
+            return {
+                "error": str(e),
+                "metrics": {},
+                "insights": ["Evaluation failed due to error"],
+                "recommended_improvements": ["Fix evaluation system errors"],
+                "metadata": {
+                    "model_used": self.model_name,
+                    "revision_count": self.revision_count,
+                    "error_occurred": True
+                }
+            }
+    
+    def _generate_evaluation_rubric(self, job_description: str) -> Dict[str, Any]:
+        """
+        Create a comprehensive evaluation rubric for the given job
+        """
+        # This is the agent's first revision/iteration
+        self.revision_count = 1
+        
+        prompt = f"""
+        You are an expert hiring manager with deep experience in technical recruitment.
+        Create a comprehensive evaluation rubric for assessing candidates for the following job:
+        
+        ---
+        {job_description}
+        ---
+        
+        The rubric should:
+        1. Identify 4-6 key competencies required for this role
+        2. For each competency, explain why it's important
+        3. For each competency, define clear criteria for different levels of proficiency (Excellent, Good, Average, Below Average)
+        4. Define clear scoring criteria for overall candidate evaluation
+        
+        Make this rubric extremely specific to the job description, not generic.
+        Your rubric will be used to evaluate the quality of our candidate ranking system.
+        
+        Return the rubric as a structured JSON object.
+        """
+        
+        try:
+            response = litellm.completion(
+                model=self.model_name,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.3,
+                max_tokens=2000
+            )
+            
+            content = response.choices[0].message.content
+            
+            # Try to extract JSON from the response
+            try:
+                json_content = self._extract_json(content)
+                rubric = json.loads(json_content)
+                return rubric
+            except:
+                # If JSON extraction fails, use the raw content
+                self.revision_count += 1  # Count as a revision
+                
+                # Try again with a more structured prompt
+                return self._retry_generate_rubric(job_description)
+                
+        except Exception as e:
+            print(f"Error generating rubric: {str(e)}")
+            # Return a simple default rubric
+            return {
+                "competencies": [
+                    {
+                        "name": "Technical Skills",
+                        "importance": "Core technical abilities needed for the role",
+                        "levels": {
+                            "Excellent": "Exceptional mastery of all required technical skills",
+                            "Good": "Strong in most required technical skills",
+                            "Average": "Sufficient technical skills but room for improvement",
+                            "Below Average": "Lacking in several key technical areas"
+                        }
+                    },
+                    {
+                        "name": "Experience",
+                        "importance": "Practical application of skills in relevant contexts",
+                        "levels": {
+                            "Excellent": "Extensive experience in directly relevant roles",
+                            "Good": "Solid experience in similar roles",
+                            "Average": "Some relevant experience but limited",
+                            "Below Average": "Minimal relevant experience"
+                        }
+                    }
+                ],
+                "overall_scoring": {
+                    "90-100": "Exceptional candidate, perfect fit",
+                    "70-89": "Strong candidate, good fit",
+                    "50-69": "Potential candidate with some gaps",
+                    "Below 50": "Not recommended for this role"
+                }
+            }
+    
+    def _retry_generate_rubric(self, job_description: str) -> Dict[str, Any]:
+        """Try to generate rubric again with more structured prompt"""
+        prompt = f"""
+        Create an evaluation rubric for this job:
+        
+        {job_description}
+        
+        Format the rubric EXACTLY as this JSON structure:
+        {{
+          "competencies": [
+            {{
+              "name": "Technical Skills",
+              "importance": "Explanation of why this matters",
+              "levels": {{
+                "Excellent": "Description of excellent level",
+                "Good": "Description of good level",
+                "Average": "Description of average level",
+                "Below Average": "Description of below average level"
+              }}
+            }},
+            // Add 3-5 more competencies specific to this job
+          ],
+          "overall_scoring": {{
+            "90-100": "Exceptional candidate, perfect fit",
+            "70-89": "Strong candidate, good fit",
+            "50-69": "Potential candidate with some gaps",
+            "Below 50": "Not recommended for this role"
+          }}
+        }}
+        
+        Ensure your response is ONLY the JSON with no additional text.
+        """
+        
+        try:
+            response = litellm.completion(
+                model=self.model_name,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.2,
+                max_tokens=2000
+            )
+            
+            content = response.choices[0].message.content
+            
+            # Try to extract JSON from the response
+            json_content = self._extract_json(content)
+            return json.loads(json_content)
+        except:
+            # If JSON extraction fails again, return a simple default rubric
+            return {
+                "competencies": [
+                    {
+                        "name": "Job Fit",
+                        "importance": "Overall alignment with job requirements",
+                        "levels": {
+                            "Excellent": "Perfect match for the job",
+                            "Good": "Good match with minor gaps",
+                            "Average": "Acceptable match with some gaps",
+                            "Below Average": "Poor match with major gaps"
+                        }
+                    }
+                ],
+                "overall_scoring": {
+                    "90-100": "Excellent fit",
+                    "70-89": "Good fit",
+                    "50-69": "Potential fit",
+                    "Below 50": "Not recommended"
+                }
+            }
+    
+    def _evaluate_ranking_quality(self, candidates: List[Dict[str, Any]], job_description: str, rubric: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Evaluate the quality of candidate rankings using the LLM agent
+        """
+        # Prepare data for evaluation
+        # Take only top 10 for quality evaluation
+        top_candidates = candidates[:min(10, len(candidates))]
+        
+        # Prepare candidate summaries
+        candidate_summaries = []
+        for i, candidate in enumerate(top_candidates):
+            summary = f"Candidate {i+1} (Rank {candidate.get('rank', i+1)}):\n"
+            summary += f"- Skills: {', '.join(candidate.get('skills', []))}\n"
+            summary += f"- Education: {candidate.get('education', 'Not specified')}\n"
+            summary += f"- Experience: {candidate.get('experience_years', 0)} years\n"
+            summary += f"- Location: {candidate.get('location', 'Not specified')}\n"
+            summary += f"- Final Score: {candidate.get('final_score', 0):.2f}\n"
+            
+            # Add LLM scores if available
+            if "llm_score" in candidate:
+                summary += f"- LLM Score: {candidate.get('llm_score', 0)}\n"
+                summary += f"- LLM Assessment: {candidate.get('llm_assessment', '')}\n"
+            
+            candidate_summaries.append(summary)
+        
+        # Join all candidate summaries
+        all_candidates = "\n".join(candidate_summaries)
+        
+        # Prepare rubric as string
+        rubric_str = json.dumps(rubric, indent=2)
+        
+        prompt = f"""
+        You are an expert evaluator assessing a candidate ranking system for job applicants.
+        
+        ## Job Description:
+        {job_description}
+        
+        ## Evaluation Rubric:
+        {rubric_str}
+        
+        ## Top Ranked Candidates:
+        {all_candidates}
+        
+        Please analyze the quality of these rankings using the evaluation rubric:
+        
+        1. Alignment Score (0-100): How well do the rankings align with the job requirements?
+        2. Ranking Effectiveness (0-100): How effective is the ranking in placing the best candidates at the top?
+        3. Diversity of Skills: Are the top candidates showing diversity in relevant skills or are they too similar?
+        4. Depth Analysis: Analyze the depth of experience and qualifications in the top candidates.
+        5. Critical Issues: Identify any critical issues with the current ranking system.
+        
+        For each of these aspects, provide:
+        - A numerical score where applicable
+        - A 2-3 sentence justification
+        - A specific example from the candidate data
+        
+        Return your evaluation as structured JSON.
+        """
+        
+        try:
+            response = litellm.completion(
+                model=self.model_name,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.3,
+                max_tokens=2000
+            )
+            
+            content = response.choices[0].message.content
+            
+            # Try to extract JSON from the response
+            try:
+                json_content = self._extract_json(content)
+                evaluation = json.loads(json_content)
+                return evaluation
+            except:
+                # If JSON extraction fails, try to create a structured response from the text
+                self.revision_count += 1  # Count as a revision
+                
+                # Extract scores using regex
+                alignment_score = self._extract_score(content, r'alignment\s*score\s*(?:\(0-100\))?\s*:?\s*(\d+)')
+                effectiveness_score = self._extract_score(content, r'ranking\s*effectiveness\s*(?:\(0-100\))?\s*:?\s*(\d+)')
+                
+                # Extract analysis sections
+                diversity_analysis = self._extract_section(content, r'diversity of skills:?\s*(.*?)(?:\n\n|\n[A-Z])')
+                depth_analysis = self._extract_section(content, r'depth analysis:?\s*(.*?)(?:\n\n|\n[A-Z])')
+                critical_issues = self._extract_section(content, r'critical issues:?\s*(.*?)(?:\n\n|$)')
+                
+                # Create structured evaluation
+                return {
+                    "alignment_score": alignment_score,
+                    "effectiveness_score": effectiveness_score,
+                    "diversity_analysis": diversity_analysis,
+                    "depth_analysis": depth_analysis,
+                    "critical_issues": critical_issues,
+                    "raw_evaluation": content[:500] + "..." if len(content) > 500 else content
+                }
+                
+        except Exception as e:
+            print(f"Error during ranking quality evaluation: {str(e)}")
+            # Return a basic evaluation
+            return {
+                "alignment_score": 50,
+                "effectiveness_score": 50,
+                "diversity_analysis": "Analysis failed due to error",
+                "depth_analysis": "Analysis failed due to error",
+                "critical_issues": f"Evaluation system error: {str(e)}",
+                "error": str(e)
+            }
+    
+    def _calculate_precision_at_k(self, ranked_candidates: List[Dict[str, Any]], ground_truth: List[Dict[str, Any]]) -> Dict[str, float]:
+        """
+        Calculate precision at different K values (1, 5, 10)
+        
+        Args:
+            ranked_candidates: List of ranked candidates
+            ground_truth: List of candidates that are considered relevant/good
+            
+        Returns:
+            Dictionary with P@1, P@5, P@10 metrics
+        """
+        # Extract IDs or filenames from ground truth for comparison
+        ground_truth_ids = set(item.get('filename', '') for item in ground_truth)
+        
+        # Calculate precision at different K values
+        metrics = {}
+        
+        # P@1
+        if len(ranked_candidates) >= 1:
+            relevant_at_1 = 1 if ranked_candidates[0].get('filename', '') in ground_truth_ids else 0
+            metrics["precision_at_1"] = relevant_at_1
+        
+        # P@5
+        if len(ranked_candidates) >= 5:
+            relevant_at_5 = sum(1 for c in ranked_candidates[:5] if c.get('filename', '') in ground_truth_ids)
+            metrics["precision_at_5"] = relevant_at_5 / 5
+        
+        # P@10
+        if len(ranked_candidates) >= 10:
+            relevant_at_10 = sum(1 for c in ranked_candidates[:10] if c.get('filename', '') in ground_truth_ids)
+            metrics["precision_at_10"] = relevant_at_10 / 10
+        
+        return metrics
+    
+    def _analyze_top_candidates(self, top_candidates: List[Dict[str, Any]], job_description: str) -> List[Dict[str, Any]]:
+        """
+        Analyze the strengths and weaknesses of top candidates
+        """
+        analysis_results = []
+        
+        for candidate in top_candidates[:5]:  # Analyze only top 5 for efficiency
+            try:
+                analysis = self._analyze_candidate_fit(candidate, job_description)
+                analysis_results.append({
+                    "filename": candidate.get("filename", "Unknown"),
+                    "rank": candidate.get("rank", 0),
+                    "fit_score": analysis.get("fit_score", 0),
+                    "strengths": analysis.get("strengths", []),
+                    "weaknesses": analysis.get("weaknesses", []),
+                    "recommendation": analysis.get("recommendation", "")
+                })
+            except Exception as e:
+                # Add error information for this candidate
+                analysis_results.append({
+                    "filename": candidate.get("filename", "Unknown"),
+                    "rank": candidate.get("rank", 0),
+                    "error": str(e)
+                })
+        
+        return analysis_results
+    
+    def _analyze_candidate_fit(self, candidate: Dict[str, Any], job_description: str) -> Dict[str, Any]:
+        """
+        Analyze how well a candidate fits the job description
+        """
+        # Prepare candidate summary
+        skills = ", ".join(candidate.get("skills", []))
+        education = candidate.get("education", "Not specified")
+        experience_years = candidate.get("experience_years", 0)
+        location = candidate.get("location", "Not specified")
+        summary = candidate.get("summary", "")
+        
+        prompt = f"""
+        Analyze how well this candidate fits the job description:
+        
+        ## Job Description:
+        {job_description}
+        
+        ## Candidate Information:
+        - Skills: {skills}
+        - Education: {education}
+        - Experience: {experience_years} years
+        - Location: {location}
+        - Summary: {summary}
+        
+        Provide the following in your analysis:
+        1. Fit Score (0-100): How well the candidate fits the role
+        2. Strengths: Three key strengths of this candidate for this role
+        3. Weaknesses: Three potential weaknesses or gaps
+        4. Recommendation: Whether to interview, consider, or reject
+        
+        Return the analysis as JSON.
+        """
+        
+        try:
+            response = litellm.completion(
+                model=self.model_name,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.3,
+                max_tokens=1000
+            )
+            
+            content = response.choices[0].message.content
+            
+            # Try to extract JSON from the response
+            try:
+                json_content = self._extract_json(content)
+                analysis = json.loads(json_content)
+                return analysis
+            except:
+                # If JSON extraction fails, extract information using regex
+                fit_score = self._extract_score(content, r'fit\s*score\s*(?:\(0-100\))?\s*:?\s*(\d+)')
+                
+                # Extract lists with regex
+                strengths = re.findall(r'(?:Strengths|STRENGTHS):\s*(?:\d\.\s*)?([^\n\d]+)(?:\n|$)', content)
+                weaknesses = re.findall(r'(?:Weaknesses|WEAKNESSES):\s*(?:\d\.\s*)?([^\n\d]+)(?:\n|$)', content)
+                
+                # Extract recommendation
+                recommendation_match = re.search(r'(?:Recommendation|RECOMMENDATION):\s*([^\n]+)', content)
+                recommendation = recommendation_match.group(1).strip() if recommendation_match else "No recommendation provided"
+                
+                return {
+                    "fit_score": fit_score,
+                    "strengths": strengths[:3],  # Take at most 3
+                    "weaknesses": weaknesses[:3],  # Take at most 3
+                    "recommendation": recommendation
+                }
+                
+        except Exception as e:
+            print(f"Error analyzing candidate fit: {str(e)}")
+            # Return basic analysis
+            return {
+                "fit_score": 50,
+                "strengths": ["Could not determine strengths"],
+                "weaknesses": ["Could not determine weaknesses"],
+                "recommendation": "Analysis failed due to error",
+                "error": str(e)
+            }
+    
+    def _generate_recommendations(self, candidates: List[Dict[str, Any]], job_description: str, ranking_quality: Dict[str, Any]) -> List[str]:
+        """
+        Generate recommendations for improving the ranking system
+        """
+        # Use ranking quality results to inform recommendations
+        alignment_score = ranking_quality.get("alignment_score", 50)
+        effectiveness_score = ranking_quality.get("effectiveness_score", 50)
+        critical_issues = ranking_quality.get("critical_issues", "No critical issues identified")
+        
+        # Prepare summary of ranking performance
+        ranking_summary = f"""
+        Alignment Score: {alignment_score}
+        Effectiveness Score: {effectiveness_score}
+        Critical Issues: {critical_issues}
+        Number of Candidates: {len(candidates)}
+        """
+        
+        prompt = f"""
+        As an expert in recruitment and candidate evaluation, provide specific recommendations 
+        to improve our resume screening and candidate ranking system.
+        
+        ## Job Description:
+        {job_description}
+        
+        ## Current Ranking Performance:
+        {ranking_summary}
+        
+        Provide 3-5 specific, actionable recommendations to improve:
+        1. The quality of our candidate rankings
+        2. The assessment of candidate fit
+        3. The overall effectiveness of our hiring pipeline
+        
+        Each recommendation should be concrete and implementable.
+        Return the recommendations as a JSON array of strings.
+        """
+        
+        try:
+            response = litellm.completion(
+                model=self.model_name,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.4,
+                max_tokens=1500
+            )
+            
+            content = response.choices[0].message.content
+            
+            # Try to extract JSON array from the response
+            try:
+                json_content = self._extract_json(content)
+                recommendations = json.loads(json_content)
+                
+                # Ensure it's a list of strings
+                if isinstance(recommendations, list):
+                    return [str(r) for r in recommendations]
+                else:
+                    # If it's not a list, try to extract recommendations as list items
+                    return self._extract_list_items(content)
+                    
+            except:
+                # Extract recommendations as list items
+                return self._extract_list_items(content)
+                
+        except Exception as e:
+            print(f"Error generating recommendations: {str(e)}")
+            # Return basic recommendations
+            return [
+                "Ensure the job description clearly defines required skills and experience",
+                "Consider adding more weight to technical skills matching in ranking algorithm",
+                "Implement a feedback loop to improve ranking based on hiring outcomes"
+            ]
+    
+    def _extract_json(self, text: str) -> str:
+        """Extract JSON content from text"""
+        # Look for JSON content between triple backticks
+        json_match = re.search(r'```(?:json)?\s*([\s\S]*?)\s*```', text)
+        if json_match:
+            return json_match.group(1)
+        
+        # Look for content that appears to be JSON (starting with { and ending with })
+        json_match = re.search(r'(\{[\s\S]*\}|\[[\s\S]*\])', text)
+        if json_match:
+            return json_match.group(1)
+        
+        # If no JSON-like content found, return the original text
+        return text
+    
+    def _extract_score(self, text: str, pattern: str) -> int:
+        """Extract a numeric score from text using regex"""
+        match = re.search(pattern, text, re.IGNORECASE)
+        if match:
+            try:
+                return int(match.group(1))
+            except (ValueError, IndexError):
+                pass
+        return 50  # Default score
+    
+    def _extract_section(self, text: str, pattern: str) -> str:
+        """Extract a section of text using regex"""
+        match = re.search(pattern, text, re.IGNORECASE | re.DOTALL)
+        if match:
+            try:
+                return match.group(1).strip()
+            except (IndexError):
+                pass
+        return "No information available"
+    
+    def _extract_list_items(self, text: str) -> List[str]:
+        """Extract numbered or bulleted list items from text"""
+        # Look for numbered items
+        items = re.findall(r'(?:^|\n)\s*\d+\.\s*(.*?)(?:\n|$)', text)
+        
+        # If no numbered items, look for bulleted items
+        if not items:
+            items = re.findall(r'(?:^|\n)\s*[-*•]\s*(.*?)(?:\n|$)', text)
+        
+        # If still no items found, split by newlines and filter non-empty lines
+        if not items:
+            items = [line.strip() for line in text.split('\n') if line.strip()]
+        
+        # Return up to 5 items, making sure they're not too long
+        return [item[:150] + '...' if len(item) > 150 else item for item in items[:5]]
+</file>
+
+<file path="helpers.py">
+import os
+import json
+from typing import Any
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+def ensure_dir_exists(directory: str) -> None:
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+
+def save_to_json(data: Any, file_path: str) -> str:
+    with open(file_path, "w") as f:
+        json.dump(data, f, indent=2)
+    return file_path
+
+
+def get_env_var(name: str, default: str = "") -> str:
+    return os.environ.get(name, default)
+</file>
+
+<file path="main.py">
+from classes import Resume
+from fastapi import FastAPI, Form, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
+from typing import List, Dict, Any, Optional, Tuple
+import pandas as pd
+from dotenv import load_dotenv
+
+from ranker import BM25Ranker
+from reranker import LLMReranker
+from evaluator import Evaluator
+from helpers import get_env_var
+
+load_dotenv()
+
+app = FastAPI(title="Resume Screening and Candidate Ranking API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+def load_resumes() -> List[Resume]:
+    try:
+        df = pd.read_csv("./anonymized_resumes.csv")
+        df = df.dropna(subset=["education", "location", "skills"])
+        df = df[(df["education"] != "") & (df["location"] != "") & (df["skills"] != "")]
+        df = df[(df["education"] != "[]") & (df["skills"] != "[]")]
+        parsed_data = df.to_dict(orient="records")
+
+        resumes = [Resume.from_csv_row(row) for row in parsed_data]
+
+        return resumes
+    except Exception as e:
+        raise Exception(f"Error loading resumes: {str(e)}")
+
+
+def rank_candidates(
+    resumes: List[Resume],
+    job_description: str,
+) -> List[Tuple[Resume, float]]:
+    try:
+        ranker = BM25Ranker(resumes)
+
+        ranked_candidates = ranker.rank(job_description)
+
+        return ranked_candidates
+    except Exception as e:
+        raise Exception(f"Error ranking candidates: {str(e)}")
+
+
+def rerank_candidates(
+    ranked_candidates: List[Tuple[Resume, float]], job_description: str, top_k: int = 10
+) -> List[Tuple[Resume, float]]:
+    try:
+        reranker = LLMReranker(ranked_candidates)
+
+        reranked_candidates = reranker.rerank(job_description, top_k)
+
+        return reranked_candidates
+    except Exception as e:
+        raise Exception(f"Error reranking candidates: {str(e)}")
+
+
+def evaluate_ranking(
+    candidates: List[Tuple[Resume, float]],
+    job_description: str,
+    ground_truth: Optional[List[Dict[str, Any]]] = None,
+):
+    try:
+        evaluator = Evaluator()
+
+        evaluation_results = evaluator.evaluate(
+            candidates, job_description, ground_truth
+        )
+
+        return evaluation_results
+    except Exception as e:
+        raise Exception(f"Error evaluating ranking: {str(e)}")
+
+
+@app.post("/complete-pipeline")
+async def complete_pipeline(job_description: str = Form(...), top_k: int = Form(10)):
+    try:
+        candidates = load_resumes()
+
+        ranked_candidates = rank_candidates(candidates, job_description)
+
+        print("BM25 Ranked Candidates\n")
+        for candidate, score in ranked_candidates:
+            print(f"{candidate.resume_id}: {score}")
+
+        reranked_candidates = rerank_candidates(
+            ranked_candidates, job_description, top_k
+        )
+
+        print("\n\nLLM Reranked Candidates\n")
+        for candidate, score in reranked_candidates:
+            print(f"{candidate.resume_id}: {score}")
+
+        evaluation_results = evaluate_ranking(reranked_candidates, job_description)
+
+        return {
+            "ranked_candidates": [(c[0].__dict__, c[1]) for c in ranked_candidates],
+            "reranked_candidates": reranked_candidates,
+            "evaluation_results": evaluation_results,
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Pipeline error: {str(e)}")
+
+
+if __name__ == "__main__":
+    port = int(get_env_var("PORT", "8000"))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
+</file>
+
+<file path="ranker.py">
+from typing import List, Tuple, Dict
+
+import numpy as np
+
+from classes import Resume
+
+
+class BM25Ranker:
+    def __init__(
+        self,
+        candidates: List[Resume],
+        k1: float = 1.5,
+        k2: float = 1.69,
+        b: float = 0.75,
+    ):
+        self.candidates = candidates
+        self.k1 = k1
+        self.k2 = k2
+        self.b = b
+
+        self.idf_index: Dict[str, float] = {}
+        self.avg_doc_length = 0
+
+        # index the IDFs of each token across all resumes
+        appearance_index: Dict[str, int] = (
+            {}
+        )  # the number of times token appears across documents
+        for candidate in self.candidates:
+            tokens = candidate.tokens
+            for token in set(tokens):
+                appearance_index[token] = appearance_index.get(token, 0) + 1
+
+            self.avg_doc_length += len(tokens)
+        self.avg_doc_length /= len(self.candidates)
+
+        # normalized idfs with log((N - n_i + 0.5) / (n_i + 0.5))
+        N = len(self.candidates)
+        for token, n_i in appearance_index.items():
+            self.idf_index[token] = np.log((N - n_i + 0.5) / (n_i + 0.5))
+
+        # index doc lenth normalization factors (the K in bm25)
+        # K = k1 * (1 - b + b * |d|/avg_doc_length)
+        self.K = {
+            c.resume_id: k1 * ((1 - b) + b * (len(c.tokens) / self.avg_doc_length))
+            for c in candidates
+        }
+
+    def rank(self, job_description: str) -> List[Tuple[Resume, float]]:
+        """
+        Rank candidates using BM25 scoring.
+
+        Args:
+            job_description: Job description text used for query
+        Returns:
+            List of tuples containing Resume and BM25 score
+        """
+        processed_description = (
+            job_description.lower()
+            .replace(";", " ")
+            .replace(":", " ")
+            .replace("-", " ")
+            .replace(",", " ")
+        )
+        return sorted(
+            ((c, self.bm25_score(c, processed_description)) for c in self.candidates),
+            key=lambda x: x[1],
+            reverse=True,
+        )
+
+    def bm25_score(self, candidate: Resume, job_description: str) -> float:
+        score = 0.0
+        query_tokens = job_description.split()
+
+        for token in set(query_tokens):
+            qf = query_tokens.count(token) if self.k2 > 0 else 1
+
+            f = candidate.term_frequencies.get(token, 0)
+
+            if f == 0:
+                continue
+
+            idf = self.idf_index.get(token, 0.0)
+            K = self.K[candidate.resume_id]
+
+            term_score = idf * (f * (self.k1 + 1)) / (f + K)
+
+            if self.k2 > 0:
+                term_score *= ((self.k2 + 1) * qf) / (self.k2 + qf)
+
+            score += term_score
+
+        return score
+</file>
+
+<file path="README.md">
+# Resume Screening & Candidate Ranking Backend
+
+Backend system that automates resume screening and candidate ranking based on job descriptions.
+
+## Features
+
+- **Resume Parsing**: Extracts skills, education, experience from resumes
+- **Ranking**: Uses BM25 algorithm to score and rank candidates
+- **Re-ranking**: LLM-based reranking of top candidates (via OpenAI API)
+- **Evaluation**: Sophisticated evaluation of ranking quality
+
+## Setup
+
+```bash
+pip install -r requirements.txt
+cp .env.example .env
+```
+
+Edit the `.env` file with your OpenAI API key.
+
+## Usage
+
+Start the API server:
+```bash
+uvicorn main:app --reload
+```
+
+Test the pipeline:
+```bash
+./test_pipeline.py --count 5 --filter --rerank --evaluate
+```
+
+## API Endpoints
+
+- `POST /parse-resumes`: Parse uploaded resumes
+- `POST /rank-candidates`: Rank candidates based on job description
+- `POST /rerank-candidates`: Re-rank top candidates using LLM
+- `POST /evaluate-ranking`: Evaluate ranking quality
+- `POST /complete-pipeline`: Run the full pipeline
+</file>
+
+<file path="requirements.txt">
+litellm==1.66.1
+fastapi==0.108.0
+uvicorn==0.27.0
+pydantic==2.5.3
+scikit-learn==1.4.0
+pytest==7.4.3
+pandas==2.1.4
+numpy==1.26.3
+rank_bm25==0.2.2
+python-multipart==0.0.9
+python-dotenv==1.0.0
+requests==2.31.0
+</file>
+
+<file path="reranker.py">
+import json
+from classes import EvaluationResult, EvaluationRubric, Resume
+import litellm
+import re
+from typing import Dict, Any, List, Tuple
+import time
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+class LLMReranker:
+    def __init__(
+        self,
+        ranked_candidates: List[Tuple[Resume, float]],
+        model_name: str = "gpt-4.1-nano",
+    ):
+        self.ranked_candidates = ranked_candidates
+        self.model_name = model_name
+
+        litellm.set_verbose = False
+
+    def rerank(
+        self, job_description: str, top_k: int = 10
+    ) -> List[Tuple[Resume, float]]:
+        top_candidates = self.ranked_candidates[
+            : min(top_k, len(self.ranked_candidates))
+        ]
+
+        if not top_candidates:
+            return []
+
+        reranked_candidates = self.batch_rerank(top_candidates, job_description)
+
+        return sorted(reranked_candidates, key=lambda x: x[1], reverse=True)
+
+    def batch_rerank(
+        self, top_candidates: List[Tuple[Resume, float]], job_description: str
+    ) -> List[Tuple[Resume, float]]:
+        reranked_candidates = []
+
+        rubric = self.generate_evaluation_rubric(job_description)
+
+        reranked_candidates = self.evaluate_candidates(
+            next(zip(*top_candidates)), job_description, rubric
+        )
+
+        return reranked_candidates
+
+    def generate_evaluation_rubric(self, job_description: str) -> EvaluationRubric:
+        system_prompt = f"""
+        You are an expert hiring manager assistant. Based on the following job description, create a structured evaluation rubric that can be used to score candidates.
+        The rubric should include 3-5 key criteria that are most important for this role.
+        
+        For each criterion, specify:
+        1. The name of the criterion
+        2. Why it's important for this role
+        3. What would constitute a score range of 80-100 out of 100
+        4. What would constitute a score range of 60-79 out of 100
+        5. What would constitute a score range of 40-59 out of 100
+        6. What would constitute a score range of 20-39 out of 100
+        7. What would constitute a score range of 0-19 out of 100
+        
+        Job Description:
+        {job_description}
+        
+        Return the rubric as a structured JSON object with each criterion and its details.
+        """
+
+        try:
+            response = litellm.completion(
+                model=self.model_name,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": "Generate the rubric."},
+                ],
+                temperature=0.2,
+                response_format=EvaluationRubric,
+            )
+
+            response_message = response.choices[0].message.content
+
+            return EvaluationRubric.model_validate_json(response_message)
+
+        except Exception as e:
+            raise e
+
+    def evaluate_candidates(
+        self,
+        candidates: List[Resume],
+        job_description: str,
+        rubric: EvaluationRubric,
+    ) -> List[Tuple[Resume, float]]:
+        rubric_text = self.prepare_rubric(rubric)
+
+        try:
+            responses = litellm.batch_completion(
+                model=self.model_name,
+                messages=[
+                    [
+                        {
+                            "role": "system",
+                            "content": self.prepare_system_prompt(
+                                job_description, candidate, rubric_text
+                            ),
+                        },
+                        {
+                            "role": "user",
+                            "content": "Return the numerical score as a float value.",
+                        },
+                    ]
+                    for candidate in candidates
+                ],
+                temperature=0.2,
+                response_format=EvaluationResult,
+            )
+
+            return [
+                (
+                    candidate,
+                    EvaluationResult.model_validate_json(
+                        response.choices[0].message.content
+                    ).score,
+                )
+                for candidate, response in zip(candidates, responses)
+            ]
+
+        except Exception as e:
+            raise e
+
+    def prepare_system_prompt(
+        self, job_description: str, candidate: Resume, rubric_text: str
+    ):
+        return f"""
+        You are an expert hiring manager assistant. Evaluate the following candidate for a job using the provided rubric.
+        
+        ## Job Description:
+        {job_description}
+        
+        ## Candidate Resume:
+        {candidate.resume_text}
+        
+        ## Evaluation Rubric:
+        {rubric_text}
+        
+        Based on the candidate's resume and the evaluation rubric, provide a single numerical score between 0 and 100 that represents how well the candidate matches the job description.
+        """
+
+    def prepare_rubric(self, rubric: EvaluationRubric) -> str:
+        rubric_text = "EVALUATION CRITERIA:\n\n"
+
+        for criterion in rubric.criteria:
+            rubric_text += (
+                f"Criterion: {criterion.name} (Importance: {criterion.importance})\n"
+            )
+            rubric_text += f"- Excellent (80-100): {criterion.score_80_100}\n"
+            rubric_text += f"- Good (60-79): {criterion.score_60_79}\n"
+            rubric_text += f"- Average (40-59): {criterion.score_40_59}\n"
+            rubric_text += f"- Below Average (20-39): {criterion.score_20_39}\n"
+            rubric_text += f"- Poor (0-19): {criterion.score_0_19}\n\n"
+
+        return rubric_text
+</file>
+
+</files>

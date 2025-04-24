@@ -181,3 +181,4 @@ output/**/*
 .env
 
 anonymized_resumes.csv
+**/anonymized_resumes.csv

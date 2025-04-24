@@ -1,4 +1,6 @@
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
+from pydantic import BaseModel
+from typing import List
 
 
 class Education:
@@ -94,8 +96,22 @@ class Resume:
 
         return cls(
             resume_id=row.get("resume_id", ""),
-            resume_text=row.get("resume_text", ""),
+            resume_text=row.get("anonResumeText", ""),
             education=education_objects,
             location=row.get("location", ""),
             skills=skills_data,
         )
+
+
+class EvaluationCriterion(BaseModel):
+    name: str
+    importance: str
+    score_80_100: str
+    score_60_79: str
+    score_40_59: str
+    score_20_39: str
+    score_0_19: str
+
+
+class EvaluationRubric(BaseModel):
+    criteria: List[EvaluationCriterion]

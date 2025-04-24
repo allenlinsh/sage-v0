@@ -1,5 +1,5 @@
 import json
-from classes import Resume
+from classes import EvaluationRubric, Resume
 import litellm
 import re
 from typing import Dict, Any, List, Tuple
@@ -10,7 +10,11 @@ load_dotenv()
 
 
 class LLMReranker:
-    def __init__(self, ranked_candidates: List[Tuple[Resume, float]], model_name: str = "gpt-4.1-mini"):
+    def __init__(
+        self,
+        ranked_candidates: List[Tuple[Resume, float]],
+        model_name: str = "gpt-4.1-nano",
+    ):
         self.ranked_candidates = ranked_candidates
         self.model_name = model_name
 
@@ -19,7 +23,9 @@ class LLMReranker:
     def rerank(
         self, job_description: str, top_k: int = 10
     ) -> List[Tuple[Resume, float]]:
-        top_candidates = self.ranked_candidates[: min(top_k, len(self.ranked_candidates))]
+        top_candidates = self.ranked_candidates[
+            : min(top_k, len(self.ranked_candidates))
+        ]
 
         if not top_candidates:
             return []
@@ -34,6 +40,10 @@ class LLMReranker:
         reranked_candidates = []
 
         rubric = self.generate_evaluation_rubric(job_description)
+        
+        print(rubric)
+        
+        return
 
         for candidate, score in top_candidates:
             time.sleep(0.1)
@@ -41,27 +51,27 @@ class LLMReranker:
             evaluated_candidate, evaluated_score = self.evaluate_candidate(
                 candidate, score, job_description, rubric
             )
-            
+
             reranked_candidates.append((evaluated_candidate, evaluated_score))
 
         return reranked_candidates
 
-    def generate_evaluation_rubric(self, job_description: str) -> Dict[str, Any]:
-        """Generate an evaluation rubric based on the job description"""
-        prompt = f"""
-        You are an expert hiring manager assistant. Based on the following job description, 
-        create a structured evaluation rubric that can be used to score candidates.
+    def generate_evaluation_rubric(self, job_description: str) -> EvaluationRubric:
+        system_prompt = f"""
+        You are an expert hiring manager assistant. Based on the following job description, create a structured evaluation rubric that can be used to score candidates.
         The rubric should include 3-5 key criteria that are most important for this role.
-        
-        Job Description:
-        {job_description}
         
         For each criterion, specify:
         1. The name of the criterion
         2. Why it's important for this role
-        3. What would constitute a high score (5/5)
-        4. What would constitute a medium score (3/5)
-        5. What would constitute a low score (1/5)
+        3. What would constitute a score range of 80-100 out of 100
+        4. What would constitute a score range of 60-79 out of 100
+        5. What would constitute a score range of 40-59 out of 100
+        6. What would constitute a score range of 20-39 out of 100
+        7. What would constitute a score range of 0-19 out of 100
+        
+        Job Description:
+        {job_description}
         
         Return the rubric as a structured JSON object with each criterion and its details.
         """
@@ -69,63 +79,27 @@ class LLMReranker:
         try:
             response = litellm.completion(
                 model=self.model_name,
-                messages=[{"role": "user", "content": prompt}],
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": "Generate the rubric."},
+                ],
                 temperature=0.2,
-                max_tokens=1000,
+                response_format=EvaluationRubric,
             )
 
-            content = response.choices[0].message.content
-
-            # Try to extract JSON from the response
-            try:
-                # Look for JSON in the response
-                json_content = self._extract_json(content)
-                return json.loads(json_content)
-            except:
-                # If JSON extraction fails, return a simple structured rubric
-                return {
-                    "criteria": [
-                        {
-                            "name": "Technical Skills Match",
-                            "importance": "Technical skills directly impact performance in the role",
-                            "high_score": "Possesses all key technical skills mentioned in job description",
-                            "medium_score": "Has most technical skills but missing some key requirements",
-                            "low_score": "Missing many key technical skills required for the role",
-                        },
-                        {
-                            "name": "Experience Level",
-                            "importance": "Right experience level ensures candidate can handle job complexity",
-                            "high_score": "Experience level aligns perfectly with job requirements",
-                            "medium_score": "Has experience but slightly under/over qualified",
-                            "low_score": "Significantly under or overqualified for the position",
-                        },
-                        {
-                            "name": "Education and Certifications",
-                            "importance": "Demonstrates formal knowledge and training in relevant areas",
-                            "high_score": "Education/certifications exceed requirements",
-                            "medium_score": "Has minimum required education/certifications",
-                            "low_score": "Missing required education/certifications",
-                        },
-                    ]
-                }
+            response_message = response.choices[0].message.content
+            
+            return EvaluationRubric.model_validate_json(response_message)
 
         except Exception as e:
-            print(f"Error generating rubric: {str(e)}")
-            # Return a default rubric on error
-            return {
-                "criteria": [
-                    {
-                        "name": "Overall Job Fit",
-                        "importance": "Measures how well the candidate matches the job requirements",
-                        "high_score": "Excellent match for key requirements",
-                        "medium_score": "Satisfactory match for requirements",
-                        "low_score": "Poor match for requirements",
-                    }
-                ]
-            }
+            raise e
 
     def evaluate_candidate(
-        self, candidate: Resume, score: float, job_description: str, rubric: Dict[str, Any]
+        self,
+        candidate: Resume,
+        score: float,
+        job_description: str,
+        rubric: Dict[str, Any],
     ) -> Tuple[Resume, float]:
         candidate_summary = self.prepare_candidate_summary(candidate)
 

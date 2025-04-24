@@ -1,4 +1,4 @@
-from typing import List, Tuple, Dict, Any, Optional
+from typing import List, Tuple, Dict
 
 import numpy as np
 
@@ -10,7 +10,7 @@ class BM25Ranker:
         self,
         candidates: List[Resume],
         k1: float = 1.5,
-        k2: float = 0,
+        k2: float = 100,
         b: float = 0.75,
     ):
         self.candidates = candidates
@@ -74,6 +74,7 @@ class BM25Ranker:
             qf = query_tokens.count(token) if self.k2 > 0 else 1
 
             f = candidate.term_frequencies.get(token, 0)
+
             if f == 0:
                 continue
 

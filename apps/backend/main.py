@@ -42,7 +42,7 @@ def rank_candidates(
 ) -> List[Tuple[Resume, float]]:
     try:
         ranker = BM25Ranker(resumes)
-
+        
         ranked_candidates = ranker.rank(job_description)
 
         return ranked_candidates
@@ -84,12 +84,14 @@ def evaluate_ranking(
 async def complete_pipeline(job_description: str = Form(...), top_k: int = Form(10)):
     try:
         candidates = load_resumes()
-
+        
         ranked_candidates = rank_candidates(candidates, job_description)
 
         reranked_candidates = rerank_candidates(
             ranked_candidates, job_description, top_k
         )
+
+        return
 
         evaluation_results = evaluate_ranking(reranked_candidates, job_description)
 

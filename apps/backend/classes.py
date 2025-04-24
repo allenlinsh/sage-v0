@@ -44,7 +44,9 @@ class Resume:
         skills: List[str] = None,
     ):
         self.resume_id = resume_id
-        self.resume_text = resume_text
+        self.resume_text = (
+            resume_text.replace(";", " ").replace(":", " ").replace("-", " ")
+        )
         self.education = education or []
         self.location = location
         self.skills = skills or []

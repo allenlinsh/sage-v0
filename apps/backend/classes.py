@@ -45,7 +45,7 @@ class Resume:
     ):
         self.resume_id = resume_id
         self.resume_text = (
-            resume_text.replace(";", " ").replace(":", " ").replace("-", " ")
+            resume_text.lower().replace(";", " ").replace(":", " ").replace("-", " ")
         )
         self.education = education or []
         self.location = location

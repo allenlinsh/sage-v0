@@ -54,8 +54,14 @@ class BM25Ranker:
         Returns:
             List of tuples containing Resume and BM25 score
         """
+        processed_description = (
+            job_description.lower()
+            .replace(";", " ")
+            .replace(":", " ")
+            .replace("-", " ")
+        )
         return sorted(
-            ((c, self.bm25_score(c, job_description)) for c in self.candidates),
+            ((c, self.bm25_score(c, processed_description)) for c in self.candidates),
             key=lambda x: x[1],
             reverse=True,
         )

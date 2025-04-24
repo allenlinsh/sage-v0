@@ -23,6 +23,7 @@ class Evaluator:
         self.top_k = 10
 
         litellm.set_verbose = False
+        litellm.drop_params = True
 
     def evaluate(
         self,

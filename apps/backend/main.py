@@ -90,7 +90,7 @@ async def complete_pipeline(job_description: str = Form(...), top_k: int = Form(
 
         ranked_candidates = rank_candidates(candidates, job_description)
 
-        print("BM25 Ranked Candidates\n\n")
+        print("BM25 Ranked Candidates\n")
         for candidate, score in ranked_candidates:
             print(f"{candidate.resume_id}: {score}")
 
@@ -98,7 +98,7 @@ async def complete_pipeline(job_description: str = Form(...), top_k: int = Form(
             ranked_candidates, job_description, top_k
         )
 
-        print("\n\nLLM Reranked Candidates\n\n")
+        print("\n\nLLM Reranked Candidates\n")
         for candidate, score in reranked_candidates:
             print(f"{candidate.resume_id}: {score}")
 

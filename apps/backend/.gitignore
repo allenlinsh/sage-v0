@@ -179,3 +179,5 @@ output/**/*
 
 # Misc
 .env
+
+anonymized_resumes.csv

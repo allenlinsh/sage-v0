@@ -70,14 +70,11 @@ def rerank_candidates(
 def evaluate_ranking(
     candidates: List[Tuple[Resume, float]],
     job_description: str,
-    ground_truth: Optional[List[Dict[str, Any]]] = None,
 ):
     try:
         evaluator = Evaluator()
 
-        evaluation_results = evaluator.evaluate(
-            candidates, job_description, ground_truth
-        )
+        evaluation_results = evaluator.evaluate(candidates, job_description)
 
         return evaluation_results
     except Exception as e:

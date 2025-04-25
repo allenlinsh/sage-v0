@@ -72,7 +72,7 @@ def evaluate_ranking(
     candidates: List[Tuple[Resume, float]],
     job_description: str,
     top_k: int = 10,
-):
+) -> Tuple[float, float]:
     try:
         evaluator = Evaluator(top_k)
 
@@ -88,7 +88,7 @@ async def complete_pipeline(job_description: str = Form(...), top_k: int = Form(
     try:
         candidates = load_resumes()
 
-        print("\nRanking Candidates...\n")
+        print("\nRanking Candidates...")
 
         ranked_candidates = rank_candidates(candidates, job_description)
 
@@ -96,7 +96,7 @@ async def complete_pipeline(job_description: str = Form(...), top_k: int = Form(
         for candidate, score in ranked_candidates:
             print(f"{candidate.resume_id}: {score}")
 
-        print("\nReranking Candidates...\n")
+        print("\nReranking Candidates...")
 
         reranked_candidates = rerank_candidates(
             ranked_candidates, job_description, top_k
@@ -106,16 +106,20 @@ async def complete_pipeline(job_description: str = Form(...), top_k: int = Form(
         for candidate, score in reranked_candidates:
             print(f"{candidate.resume_id}: {score}")
 
-        print("\nEvaluating Candidates...\n")
+        print("\nEvaluating Candidates...")
 
-        evaluation_results = evaluate_ranking(reranked_candidates, job_description)
+        map_at_10, precision_at_10 = evaluate_ranking(
+            reranked_candidates, job_description
+        )
 
-        print(f"\nMAP@10: {evaluation_results}\n")
+        print(f"\nMAP@10: {map_at_10}")
+        print(f"\nPrecision@10: {precision_at_10}")
 
         return {
             "ranked_candidates": [(c[0].__dict__, c[1]) for c in ranked_candidates],
             "reranked_candidates": [(c[0].__dict__, c[1]) for c in reranked_candidates],
-            "evaluation_results": evaluation_results,
+            "map_at_10": map_at_10,
+            "precision_at_10": precision_at_10,
         }
 
     except Exception as e:

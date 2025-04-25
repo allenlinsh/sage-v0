@@ -27,7 +27,7 @@ uvicorn main:app --reload
 
 Test the pipeline:
 ```bash
-./test_pipeline.py --count 5 --filter --rerank --evaluate
+curl -X POST http://localhost:8000/run -F 'job_description=Frontend Developer, React, 3+ years, remote-friendly'
 ```
 
 ## API Endpoints

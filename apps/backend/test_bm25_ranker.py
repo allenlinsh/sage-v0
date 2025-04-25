@@ -2,6 +2,7 @@ import pytest
 import json
 import pandas as pd
 import os
+import sys
 from typing import List, Tuple
 
 from classes import Resume, Education
@@ -27,7 +28,16 @@ def load_job_descriptions() -> dict[str, str]:
 def test_pipeline():
     resumes = load_resumes()
 
-    job_descriptions = load_job_descriptions()
+    # If a filename is passed, test it instead of the default folder of jobs
+    if len(sys.argv) > 1:
+        filename = sys.argv[1]
+        with open(filename, "r") as file:
+            job_description = file.read()
+            job_name = os.path.basename(filename).split(".")[0]
+            job_descriptions = {job_name: job_description}
+            print(f"Loaded job description from {filename}\n")
+    else:
+        job_descriptions = load_job_descriptions()
 
     topk = 10
     for job_name, job_description in job_descriptions.items():

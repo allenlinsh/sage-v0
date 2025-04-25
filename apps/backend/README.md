@@ -25,10 +25,20 @@ Start the API server:
 uvicorn main:app --reload
 ```
 
-Test the pipeline:
+Test the pipeline with API:
 ```bash
 curl -X POST http://localhost:8000/run -F 'job_description=Frontend Developer, React, 3+ years, remote-friendly'
 ```
+
+Test example resumes from the command line with
+```bash
+python test_bm25_ranker.py
+```
+or a custom file with
+```bash
+python test_bm25_ranker.py <path/to/resume.txt>
+```
+
 
 ## API Endpoints
 

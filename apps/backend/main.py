@@ -11,6 +11,7 @@ from reranker import LLMReranker
 from evaluator import Evaluator
 from helpers import get_env_var
 
+
 load_dotenv()
 
 app = FastAPI(title="Resume Screening and Candidate Ranking API")
@@ -70,9 +71,10 @@ def rerank_candidates(
 def evaluate_ranking(
     candidates: List[Tuple[Resume, float]],
     job_description: str,
+    top_k: int = 10,
 ):
     try:
-        evaluator = Evaluator()
+        evaluator = Evaluator(top_k)
 
         evaluation_results = evaluator.evaluate(candidates, job_description)
 

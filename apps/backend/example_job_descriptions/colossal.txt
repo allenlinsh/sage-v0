@@ -1,0 +1,32 @@
+Colossal is seeking a talented computational biologist with strong analytical skills to tackle challenging genotype-to-phenotype questions. The successful candidate will collaborate with scientists and engineers to design and perform bioinformatics analyses and integrate genomic, epigenomic, transcriptomic, and proteomic datasets to support Colossal Bioscience’s de-extinction efforts. The candidate must have experience in bioinformatics, computational biology, or comparative genomics.
+
+Preference will be given to candidates with a PhD who have experience developing genotype-to-phenotype AI/ML methods that integrate across data sets, particularly applying diverse data (genomics, epigenomics, transcriptomics, proteomics) alongside functional annotations and ontologies to data-sparse or non-model organisms.
+
+**This position will be based out of Dallas, TX office or remote from within the United States with 1-2 yearly site visits.
+
+Duties and Responsibilities:
+
+Run data analysis with biological data
+Run comparative, functional, and statistical genomics analysis
+Develop new tools in R/Python for data analysis and visualization
+Prepare reports and presentations to communicate findings to wet-bench biologists
+Required Skills and Abilities:
+
+Two years of bioinformatics experience in the following areas: Comparative Genomics, Functional Genomics / Multi-Omics, Molecular Evolution, or Applied AI in Genomics.
+Experience in the development of models to predict biological results or gene function, including variant detection, functional predictions, and genotype/phenotype relationships.
+Demonstrated 2 years of experience with scripting languages, including but not limited to: Python, R, Perl, Ruby, Java, and BASH.
+Ability to write and run custom bioinformatics scripts using existing published tools and occasionally tools developed to summarize the results in a digestible manner and deliver the information using established reporting procedures.
+Proficiency with handling large-scale genomic data in an HPC (SGE, SLURM, PBS) Linux and/or cloud environment (e.g. AWS, Google Cloud, Azure).
+Experience in using GIT version control software and maintaining well-documented, reproducible notebooks and workflows.
+Ability to design and maintain databases (MySQL, PostgreSQL, MongoDB) and connect with visual platforms to curate and share data with non-bioinformatics team members.
+Preferred Skills and Abilities:
+
+Developing or implementing AI/ML frameworks and systems biology networks (e.g., interpretable aka visible deep neural networks like GenNet) for genotype-to-phenotype and functional predictions
+Calling germline and somatic sequence variants from high-coverage WGS, low-coverage WGS with imputation, and sequencing libraries from degraded or ancient DNA
+Performing evolutionary and statistical genomics analyses, including genome-wide scans for evolutionary signatures and selective sweeps and population genetics analysis (e.g., runs of homozygosity and association mapping)
+Constructing, interpreting, and utilizing pangenome graphs
+Statistical planning and collaboration with laboratory scientists on designing well-powered experiments to generate useful multi-omics data sets
+Understanding of precision gene editing technologies like CRISPR/Cas9 systems
+Education and Experience:
+
+Masters with 2 years of experience or PhD in quantitative or basic science (computer science, computational biology, bioinformatics, chemistry, physics, or mathematics preferred) is required

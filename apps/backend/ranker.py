@@ -3,6 +3,7 @@ from typing import List, Tuple, Dict
 import numpy as np
 
 from classes import Resume
+from text_cleaner import clean
 
 
 class BM25Ranker:
@@ -54,25 +55,18 @@ class BM25Ranker:
         Returns:
             List of tuples containing Resume and BM25 score
         """
-        processed_description = (
-            job_description.lower()
-            .replace(";", " ")
-            .replace(":", " ")
-            .replace("-", " ")
-            .replace(",", " ")
-        )
+        processed_description = clean(job_description)
         return sorted(
             ((c, self.bm25_score(c, processed_description)) for c in self.candidates),
             key=lambda x: x[1],
             reverse=True,
         )
 
-    def bm25_score(self, candidate: Resume, job_description: str) -> float:
+    def bm25_score(self, candidate: Resume, job_description_tokens: List[str]) -> float:
         score = 0.0
-        query_tokens = job_description.split()
 
-        for token in set(query_tokens):
-            qf = query_tokens.count(token) if self.k2 > 0 else 1
+        for token in set(job_description_tokens):
+            qf = job_description_tokens.count(token) if self.k2 > 0 else 1
 
             f = candidate.term_frequencies.get(token, 0)
 

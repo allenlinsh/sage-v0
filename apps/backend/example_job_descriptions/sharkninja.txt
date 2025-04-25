@@ -1,0 +1,26 @@
+We are looking for an Electrical Design Engineering Co-op – Ninja to help us create a new generation of innovative Ninja products. We thrive on designing great products that delight our customers yet know that it takes unusual individuals to make it happen. Working as part of our Product Innovation team you will bring technical substance and inspiration to our creative efforts to ensure that imaginative but credible solutions populate our ambitious product roadmap.
+
+Here are some of the EXCITING things you’ll get to do: 
+
+ Support the development of novel concepts and technologies for our next generation of products.
+ Support senior members to design analog and digital circuits including low noise analog circuits, A/D and D/A converters, microprocessors, communication interfaces, linear and switched-mode power supplies.
+ Perform design, debugging, and board bring-up of analog and digital real-time embedded electronics.
+ Support design developments for microprocess-based control and communication hardware platforms using a combination of simulation, analysis, prototyping, and lab testing.
+ Support released products and perform failure analysis of field-reported issues.
+ Communicate technical information effectively in both oral and written form through design reviews, design specification, test plans, and technical reports.
+ Work with cross-functional teams including Mechanical Engineering, Marketing, and Product Testing.
+
+Attributes & Skills
+
+ The ideal candidate will have completed 3+ years in an Electrical Engineering degree program, while maintaining a 3.0 (out of 4.0) GPA or better.
+ Strong fundamentals in Bipolar and CMOS technologies, and power electronic knowledge are desired.
+ Able to quickly generate visual and physical definitions of new products that convey key attributes of functions and layout.
+ Creativity and technical knowledge are crucial for this position. - Experience with electrical engineering designing tools including LTSpice and printed circuit boards designing tools such as Altium are a plus.
+ Knowledge of product level testing including DC and AC performance, power consumption, DC and Brushless DC Motors, and Electromagnetic Compatibility is a plus.
+ Prior internship experience in consumer electronics and small appliances industry is a plus.
+ Test equipment knowledge and lab experience (oscilloscopes, function generators, power supplies, source and measurement units, surface mount soldering experience) are a plus.
+ Proficient in Microsoft 365 and experience in Visual Basic programing are a plus.
+
+Our Culture
+
+At SharkNinja, we don’t just raise the bar—we push past it every single day. Our Outrageously Extraordinary mindset drives us to tackle the impossible, push boundaries, and deliver results that others only dream of. If you thrive on breaking out of your swim lane, you’ll be right at home.

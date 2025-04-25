@@ -2,6 +2,8 @@ from typing import List, Dict, Any
 from pydantic import BaseModel
 from typing import List
 
+from text_cleaner import clean
+
 
 class Education:
     """
@@ -46,14 +48,12 @@ class Resume:
         skills: List[str] = None,
     ):
         self.resume_id = resume_id
-        self.resume_text = (
-            resume_text.lower().replace(";", " ").replace(":", " ").replace("-", " ").replace(",", " ")
-        )
+        self.resume_text = resume_text
         self.education = education or []
         self.location = location
         self.skills = skills or []
 
-        self.tokens = self.resume_text.split()
+        self.tokens = clean(self.resume_text)
 
         self.term_frequencies: Dict[str, int] = {}
 
